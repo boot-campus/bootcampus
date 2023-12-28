@@ -1,0 +1,45 @@
+name: BOOTCAMPUS BACKEND PR CI
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - backend/**
+
+jobs:
+  build_test:
+    name: backend check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+
+    steps:
+    - name: ✅ 백엔드 폴더로 체크아웃하는중...
+      uses: actions/checkout@v3
+
+    - name: ☕️ 우분투에 자바 17 세팅중...
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+
+    - name: 🐘 gradlew에 권한주는중...
+      run: chmod +x gradlew
+
+    - name: 🛠️ 프로젝트 빌드 및 테스트중...
+      run: ./gradlew build
+
+    - name: 🛡️ 테스트 결과에 대한 PR 코멘트 등록중...
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: 'backend/build/test-results/test/TEST-*.xml'
+
+    - name: 🛡️ 실패한 테스트 코드 라인에 Check 코멘트 등록중...
+      uses: mikepenz/action-junit-report@v3
+      if: always()
+      with:
+        report_paths: '**/build/test-results/test/TEST-*.xml'
+        token: ${{ github.token }}
