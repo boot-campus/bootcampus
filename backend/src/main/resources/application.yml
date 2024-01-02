@@ -1,1 +1,13 @@
+spring:
+  config:
+    import: classpath:bootcampus-backend-submodule/application-dev.yml
+    activate:
+      on-profile: dev
 
+---
+
+spring:
+  config:
+    import: classpath:bootcampus-backend-submodule/application-test.yml
+    activate:
+      on-profile: test
