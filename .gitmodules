@@ -1,0 +1,3 @@
+[submodule "backend/src/main/resources/bootcampus-backend-submodule"]
+	path = backend/src/main/resources/bootcampus-backend-submodule
+	url = https://github.com/boot-campus/bootcampus-backend-submodule.git
