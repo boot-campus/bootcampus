@@ -1,4 +1,4 @@
-package com.boot.campus.auth.infrastructure.dto;
+package com.boot.campus.auth.infrastructure.github.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;

@@ -1,4 +1,4 @@
-package com.boot.campus.auth.infrastructure;
+package com.boot.campus.auth.infrastructure.github;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

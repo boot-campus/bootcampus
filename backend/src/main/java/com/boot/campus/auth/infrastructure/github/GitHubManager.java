@@ -1,7 +1,7 @@
-package com.boot.campus.auth.infrastructure;
+package com.boot.campus.auth.infrastructure.github;
 
-import com.boot.campus.auth.infrastructure.dto.GitHubMember;
-import com.boot.campus.auth.infrastructure.dto.GitHubToken;
+import com.boot.campus.auth.infrastructure.github.dto.GitHubMember;
+import com.boot.campus.auth.infrastructure.github.dto.GitHubToken;
 import com.boot.campus.member.domain.Member;
 import java.util.HashMap;
 import java.util.Map;

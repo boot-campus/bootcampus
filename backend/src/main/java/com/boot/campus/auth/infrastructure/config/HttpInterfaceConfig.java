@@ -1,5 +1,6 @@
-package com.boot.campus.auth.infrastructure;
+package com.boot.campus.auth.infrastructure.config;
 
+import com.boot.campus.auth.infrastructure.github.GitHubApiClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;

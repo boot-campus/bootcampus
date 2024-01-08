@@ -1,4 +1,4 @@
-package com.boot.campus.auth.infrastructure.dto;
+package com.boot.campus.auth.infrastructure.github.dto;
 
 import com.boot.campus.member.domain.Member;
 import com.boot.campus.member.domain.MemberIdentity;
