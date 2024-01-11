@@ -20,13 +20,13 @@ public class AuthService {
     }
     
     public Long login(final LoginCommand command) {
-        Member member = gitHubManager.login(command.code());
-        Member registerdMember = memberRepository.findByMemberIdentity(member.getMemberIdentity())
-                                                 .orElseGet(()-> register(member));
+        final Member member = gitHubManager.login(command.code());
+        final Member registerdMember = memberRepository.findByMemberIdentity(member.getMemberIdentity())
+                                                       .orElseGet(() -> register(member));
         return registerdMember.getId();
     }
     
-    private Member register(Member member) {
+    private Member register(final Member member) {
         return memberRepository.save(member);
     }
 }
