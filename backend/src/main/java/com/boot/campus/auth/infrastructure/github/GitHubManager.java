@@ -3,9 +3,10 @@ package com.boot.campus.auth.infrastructure.github;
 import com.boot.campus.auth.infrastructure.github.dto.GitHubMember;
 import com.boot.campus.auth.infrastructure.github.dto.GitHubToken;
 import com.boot.campus.member.domain.Member;
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Component
 public class GitHubManager {
@@ -21,12 +22,12 @@ public class GitHubManager {
     }
 
     public Member login(final String code) {
-        final Map<String, String> params = new HashMap<>();
-        params.put("code", code);
+        final Map<String, String> params = new LinkedHashMap<>();
         params.put("client_id", gitHubConfig.clientId());
         params.put("client_secret", gitHubConfig.clientSecret());
+        params.put("code", code);
         final GitHubToken token = gitHubApiClient.getToken(params);
-        final GitHubMember gitHubMember = gitHubApiClient.getMember(token.accessToken());
+        final GitHubMember gitHubMember = gitHubApiClient.getMember("Bearer "+token.accessToken());
         return gitHubMember.toMember();
     }
 }

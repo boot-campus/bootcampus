@@ -1,11 +1,13 @@
 package com.boot.campus.auth.application;
 
-import com.boot.campus.auth.application.dto.GitHubLoginCommand;
+import com.boot.campus.auth.application.dto.LoginCommand;
 import com.boot.campus.auth.infrastructure.github.GitHubManager;
 import com.boot.campus.member.domain.Member;
 import com.boot.campus.member.persistence.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @Service
 public class AuthService {
     
@@ -17,14 +19,15 @@ public class AuthService {
         this.memberRepository = memberRepository;
     }
     
-    public Long login(final GitHubLoginCommand command) {
+    public Long login(final LoginCommand command) {
         Member member = gitHubManager.login(command.code());
         Member registerdMember = memberRepository.findByMemberIdentity(member.getMemberIdentity())
-                .orElseGet(()-> register(member));
+                                                 .orElseGet(()-> register(member));
         return registerdMember.getId();
     }
     
     private Member register(Member member) {
-       return memberRepository.save(member);
+        return memberRepository.save(member);
     }
 }
+
