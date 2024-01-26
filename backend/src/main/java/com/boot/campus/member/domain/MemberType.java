@@ -4,4 +4,8 @@ public enum MemberType {
     
     GITHUB,
     ;
+    
+    public static MemberType fromName(String name) {
+        return MemberType.valueOf(name);
+    }
 }
