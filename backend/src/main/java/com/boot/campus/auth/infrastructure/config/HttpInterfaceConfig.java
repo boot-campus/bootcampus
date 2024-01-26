@@ -12,10 +12,10 @@ public class HttpInterfaceConfig {
     
     @Bean
     public GitHubApiClient gitHubApiClient() {
-        return createFactory(GitHubApiClient.class);
+        return createApiClient(GitHubApiClient.class);
     }
     
-    private <T> T createFactory(final Class<T> clazz) {
+    private <T> T createApiClient(final Class<T> clazz) {
         final RestClient restClient = RestClient.create();
         final RestClientAdapter adapter = RestClientAdapter.create(restClient);
         final HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter)
