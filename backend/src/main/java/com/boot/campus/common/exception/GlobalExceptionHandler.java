@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,6 +22,19 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(e.baseExceptionType().httpStatus())
                              .body(response);
+    }
+    
+    @ExceptionHandler({
+            MethodArgumentTypeMismatchException.class
+    })
+    public ResponseEntity<ExceptionResponse> handleTypeMismatchException(final Exception e){
+        final CommonExceptionType commonExceptionType = CommonExceptionType.INVALID_REQUEST;
+        final ExceptionResponse response = new ExceptionResponse(commonExceptionType.errorCode(), commonExceptionType.errorMessage());
+        
+        log.info("mismatch exception error, {}", response);
+        
+        return ResponseEntity.status(commonExceptionType.httpStatus())
+                .body(response);
     }
 
     @ExceptionHandler(Exception.class)
