@@ -1,5 +1,9 @@
 package com.boot.campus.member.domain;
 
+import com.boot.campus.member.exception.MemberException;
+
+import static com.boot.campus.member.exception.MemberExceptionType.INVALID_MEMBER_TYPE;
+
 public enum MemberType {
     
     GITHUB,
@@ -9,7 +13,7 @@ public enum MemberType {
         try{
             return MemberType.valueOf(name);
         }catch (IllegalArgumentException e) {
-            throw new RuntimeException("일치하는 멤버 타입이 존재하지 않습니다");
+            throw new MemberException(INVALID_MEMBER_TYPE);
         }
     }
 }
