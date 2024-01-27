@@ -17,8 +17,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +37,11 @@ import static org.mockito.ArgumentMatchers.any;
 @ActiveProfiles("test")
 @SuppressWarnings("NonAsciiCharacters")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class AuthControllerTest extends RedisTestContainer {
+class GitHubAuthControllerTest extends RedisTestContainer {
+    
+    private static final String memberType = "GITHUB";
+    private static final String nickname = "nickname";
+    private static final Long memberIdentityId = 1L;
     
     @LocalServerPort
     private int port;
@@ -55,18 +57,14 @@ class AuthControllerTest extends RedisTestContainer {
         RestAssured.port = port;
     }
     
-    @ParameterizedTest
-    @ValueSource(strings = {"GITHUB"})
-    void 존재하지_않는_멤버라면_새로_멤버로_등록하고_로그인에_성공한다(String memberType) {
+    @Test
+    void 존재하지_않는_멤버라면_새로_멤버로_등록하고_로그인에_성공한다() {
         //given
-        Mockito.when(gitHubApiClient.getToken(any()))
-               .thenReturn(new GitHubToken("accessToken", "scope", "tokenType"));
-        Mockito.when(gitHubApiClient.getMember(any()))
-               .thenReturn(new GitHubMember("nickname", 1L));
+        mockGithubApiClient();
         
         //when
         final ExtractableResponse<Response> response = RestAssured.given().log().all()
-                                                                  .pathParam("memberType", memberType)
+                                                                  .pathParam("memberType", "GITHUB")
                                                                   .queryParam("code", "code")
                                                                   .when()
                                                                   .post("/login/{memberType}")
@@ -80,19 +78,12 @@ class AuthControllerTest extends RedisTestContainer {
         });
     }
     
-    @ParameterizedTest
-    @ValueSource(strings = {"GITHUB"})
-    void 이미_존재하는_멤버라면_로그인에_성공한다(String memberType) {
+    @Test
+    void 이미_존재하는_멤버라면_로그인에_성공한다() {
         //given
-        final String nickname = "nickname";
-        final Long memberIdentityId = 1L;
+        mockGithubApiClient();
         final Member member = new Member(new MemberIdentity(String.valueOf(memberIdentityId), MemberType.fromName(memberType)), nickname);
         memberRepository.save(member);
-        
-        Mockito.when(gitHubApiClient.getToken(any()))
-               .thenReturn(new GitHubToken("accessToken", "scope", "tokenType"));
-        Mockito.when(gitHubApiClient.getMember(any()))
-               .thenReturn(new GitHubMember(nickname, memberIdentityId));
         
         //when
         RestAssured.given().log().all()
@@ -158,5 +149,12 @@ class AuthControllerTest extends RedisTestContainer {
             softAssertions.assertThat(actualStatusCode).isEqualTo(expectedStatusCode);
             softAssertions.assertThat(actualResponse).isEqualTo(expectedResponse);
         });
+    }
+    
+    private void mockGithubApiClient() {
+        Mockito.when(gitHubApiClient.getToken(any()))
+               .thenReturn(new GitHubToken("accessToken", "scope", "tokenType"));
+        Mockito.when(gitHubApiClient.getMember(any()))
+               .thenReturn(new GitHubMember(nickname, memberIdentityId));
     }
 }
