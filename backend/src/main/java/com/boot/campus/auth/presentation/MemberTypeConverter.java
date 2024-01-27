@@ -1,4 +1,4 @@
-package com.boot.campus.common.config;
+package com.boot.campus.auth.presentation;
 
 import com.boot.campus.member.domain.MemberType;
 import org.springframework.core.convert.converter.Converter;
