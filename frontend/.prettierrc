@@ -1,0 +1,12 @@
+{
+  "singleQuote": true,
+  "trailingCommas": "es5",
+  "overrides": [
+    {
+      "files": ["*.json"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
+}
