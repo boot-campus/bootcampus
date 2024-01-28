@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "cross-env webpack serve --open",
+    "build:prod": "cross-env NODE_ENV=production webpack",
+    "build:dev": "cross-env NODE_ENV=development webpack"
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
