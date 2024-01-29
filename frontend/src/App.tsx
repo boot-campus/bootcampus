@@ -1,5 +1,7 @@
+import ColoredTitle from '~components/test/ColoredTitle';
+
 const App = () => {
-  return <h1>Hello, BootCampus!</h1>;
+  return <ColoredTitle color="teal">Hello, BootCampus!</ColoredTitle>;
 };
 
 export default App;
