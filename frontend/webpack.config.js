@@ -19,9 +19,6 @@ module.exports = {
     port: 3000,
     compress: true,
   },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
-  },
   module: {
     rules: [
       {
