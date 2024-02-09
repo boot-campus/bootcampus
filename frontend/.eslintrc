@@ -1,4 +1,8 @@
 {
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
@@ -17,6 +21,7 @@
     "no-useless-return": "error",
     "no-unreachable-loop": "error",
     "no-console": "warn",
-    "@typescript-eslint/no-unused-vars": "warn"
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-var-requires": "off"
   }
 }
