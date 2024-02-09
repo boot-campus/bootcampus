@@ -1,5 +1,6 @@
-import type { StorybookConfig } from '@storybook/react-webpack5';
 import { resolve } from 'path';
+import type { StorybookConfig } from '@storybook/react-webpack5';
+import type { RuleSetRule } from 'webpack';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -43,6 +44,19 @@ const config: StorybookConfig = {
         '~utils': resolve(__dirname, '../src/utils'),
       };
     }
+
+    const assetRules = config.module?.rules?.find((rule) => {
+      const test = (rule as { test: RegExp }).test;
+
+      return test.test('.svg');
+    }) as RuleSetRule;
+
+    assetRules.exclude = /\.svg$/;
+
+    config.module?.rules?.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack', 'url-loader'],
+    });
 
     return config;
   },
