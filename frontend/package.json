@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env webpack serve --open",
+    "test": "jest --watchAll",
     "build:prod": "cross-env NODE_ENV=production webpack",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "storybook": "storybook dev -p 6006",
