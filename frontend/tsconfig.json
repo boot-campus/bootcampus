@@ -1,0 +1,28 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "strict": true,
+    "module": "es6",
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "noEmitOnError": true,
+    "baseUrl": "./",
+    "paths": {
+      "~components/*": ["src/components/*"],
+      "~constants/*": ["src/constants/*"],
+      "~domains/*": ["src/domains/*"],
+      "~hooks/*": ["src/hooks/*"],
+      "~styles/*": ["src/styles/*"],
+      "~images": ["src/images/index"],
+      "~images/*": ["src/images/*"],
+      "~types": ["src/types/*"],
+      "~types/*": ["src/types/*"],
+      "~utils/*": ["src/utils/*"],
+    },
+  },
+  "include": ["src"]
+}
