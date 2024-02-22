@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BlockSelect from '.';
+import BlockSelect from './BlockSelect';
 
 /**
  * `<BlockSelect>`는 여러 옵션들 중 사용자가 하나를 선택할 수 있는, 블록 모양의 컴포넌트입니다.
